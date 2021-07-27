@@ -1,3 +1,4 @@
+import Layout from '../layout/index.vue'
 import { createRouter, createWebHashHistory } from 'vue-router'
 
 const router = createRouter({
@@ -5,37 +6,36 @@ const router = createRouter({
     routes: [
         {
             path: '/',
-            redirect: '/home'
-        },
-        {
-            path: '/home',
-            name: 'home',
-            component: () => import(/* webpackChunkName: "home" */ '../views/home/index.vue'),
-        },
-        {
-            path: '/zoomcharts',
-            name: 'zoomcharts',
-            component: () => import(/* webpackChunkName: "home" */ '../views/zoomcharts/index.vue'),
+            redirect: '/home/index'
         },
         {
             path: '/login',
-            name: 'login',
-            component: () => import(/* webpackChunkName: "home" */ '../views/login/index.vue'),
+            name: '登录页',
+            component: () => import(/* webpackChunkName: "login" */ '../views/login/index.vue'),
+            meta: {
+                keepAlive: true,
+            }
         },
         {
-            path: '/GoJs',
-            name: 'GoJs',
-            component: () => import(/* webpackChunkName: "home" */ '../views/GoJs/index.vue'),
+            path: '/lock',
+            name: '锁屏页',
+            component: () => import(/* webpackChunkName: "login" */ '../views/login/index.vue'),
+            meta: {
+                keepAlive: true,
+            }
         },
         {
-            path: '/link',
-            name: 'link',
-            component: () => import(/* webpackChunkName: "home" */ '../views/GoJs/link.vue'),
+            path: '/home',
+            component: Layout,
+            children: [{
+                path: 'index',
+                name: '首页',
+                component: () => import( /* webpackChunkName: "views" */ '../views/home/index.vue'),
+                meta: {
+                    keepAlive: true,
+                },
+            }]
         },
-        {
-            path: '/users/:username/posts/:postId',
-            component: () => import(/* webpackChunkName: "home" */ '../views/user/index.vue'),
-        }
     ]
 })
 
